@@ -12,7 +12,7 @@ struct TeamsModelView: Identifiable {
     let name: String?
     let city: String?
     let logo: String?
-    let players: [PlayersModelView]?
+    var players: [PlayersModelView]? = []
     
     var logoUrl: URL {
         return URL(string: self.logo ?? "")!

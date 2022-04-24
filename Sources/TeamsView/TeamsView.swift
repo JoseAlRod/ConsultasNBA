@@ -17,7 +17,7 @@ struct TeamsView: View {
             Section {
                 ForEach(viewModel.dataSourceWesternTeams) { item in
                     NavigationLink {
-                        DetailTeamCoordinator.view(dto: DetailTeamCoordinatorDTO(id: item.id ?? 0))
+                        DetailTeamCoordinator.view(dto: DetailTeamCoordinatorDTO(team: item))
                     } label: {
                         TeamCard(team: item)
                     }
@@ -28,7 +28,7 @@ struct TeamsView: View {
             Section {
                 ForEach(viewModel.dataSourceEasternTeams) { item in
                     NavigationLink {
-                        DetailTeamCoordinator.view(dto: DetailTeamCoordinatorDTO(id: item.id ?? 0))
+                        DetailTeamCoordinator.view(dto: DetailTeamCoordinatorDTO(team: item))
                     } label: {
                         TeamCard(team: item)
                     }

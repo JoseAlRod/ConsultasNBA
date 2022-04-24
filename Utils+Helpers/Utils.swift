@@ -68,6 +68,10 @@ struct URLEnpoint {
     //Eastern
     static let endpointEasternTeams = "teams?conference=East"
     
+    
+    //Players
+    static let endpointPlayersByTeamAndSeason = "players?team=%@&season=%@"
+    
 }
 
 
@@ -135,5 +139,41 @@ extension URLEnpoint {
                         return ["":""]
             }
         }
+    }
+}
+
+struct Season: Identifiable, Hashable {
+    var seasonYear: Int
+    var description: String
+    var id: Int {seasonYear}
+    
+    init(seasonYear: Int, description: String) {
+        self.seasonYear = seasonYear
+        self.description = description
+    }
+}
+
+final class Utils {
+    
+    private static var currentSeasonYear: Int {
+        return Calendar.current.component(.year, from: Date()) - 1
+    }
+
+    
+    private static var numberOfSeasons: Int {
+        return currentSeasonYear - 2012
+    }
+    
+    static var currentSeason: Season {
+        return Season(seasonYear: currentSeasonYear, description: "\(currentSeasonYear.description)/\(currentSeasonYear + 1)")
+    }
+    
+    static var seasons: [Season] {
+        var seasons: [Season] = []
+        for i in 0...numberOfSeasons {
+            let season = Season(seasonYear: currentSeasonYear - i, description: "\((currentSeasonYear - i).description)/\(currentSeasonYear - i + 1)")
+            seasons.append(season)
+        }
+        return seasons
     }
 }

@@ -5,14 +5,30 @@ struct DetailTeamView: View {
     @StateObject
     var viewModel = DetailTeamViewModel()
     
+    
     var body: some View {
-        List {
-            ForEach(viewModel.team?.players ?? []) { item in
-                Text("gsg")
+        VStack {
+            List {
+                ForEach(viewModel.team?.players ?? []) { item in
+                    Text("\(item.firstName ?? "") \(item.lastName ?? "")")
+                }
+            }
+            .listStyle(PlainListStyle())
+            .navigationTitle(Text(viewModel.team?.name ?? ""))
+            .onAppear {
+                self.viewModel.fetchData()
+            }
+            List {
+                Picker("Season", selection: $viewModel.selectedSeason) {
+                    ForEach(Utils.seasons) { season in
+                        Text("\(season.description)").tag(season)
+                    }
+                }
+                .onChange(of: viewModel.selectedSeason) { season in
+                    viewModel.selectedSeason = season
+                }
             }
         }
-        .listStyle(PlainListStyle())
-        .navigationTitle(Text(viewModel.team?.name ?? ""))
     }
 }
 
