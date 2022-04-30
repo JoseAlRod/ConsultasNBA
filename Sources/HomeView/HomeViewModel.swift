@@ -14,7 +14,8 @@ final class HomeViewModel: ObservableObject {
     var selectedTabItem: TabItemViewModel.TabItemType = .teams
     
     let tabItemViewModel = [
-        TabItemViewModel(imageName: "team", title: "Teams", type: .teams)
+        TabItemViewModel(imageName: "team", title: "Teams", type: .teams),
+        TabItemViewModel(imageName: "game", title: "Games", type: .games)
     ]
 }
 
@@ -25,6 +26,7 @@ struct TabItemViewModel: Hashable {
     
     enum TabItemType {
         case teams
+        case games
     }
 }
 

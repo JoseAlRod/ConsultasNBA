@@ -60,7 +60,7 @@ struct TeamCard: View {
     var body: some View {
         HStack(spacing: 4) {
             if self.imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
+                Image(uiImage: (self.imageLoader.image!))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)

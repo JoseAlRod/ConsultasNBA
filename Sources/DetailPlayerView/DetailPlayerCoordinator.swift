@@ -20,11 +20,15 @@ final class DetailPlayerCoordinator: BaseCoordinator {
             viewModel: ViewModel.self,
             interactor: Interactor.self,
             provider: Provider.self)
+        vip.viewModel.player = dto?.player
+        vip.provider.dataDTO = dto
         let view = ContentView(viewModel: vip.viewModel)
         return view
     }
 }
 
 struct DetailPlayerCoordinatorDTO {
-    
+    var player: PlayersModelView?
+    var season: Season?
+    var team: TeamsModelView?
 }

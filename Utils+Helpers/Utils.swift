@@ -45,21 +45,21 @@ struct RequestDTO {
 
 struct URLEnpoint {
     
-    #if DEV
+#if DEV
     static let environmentDefault: TargetEnvironment = TargetEnvironment.DEV
-    #elseif PRE
+#elseif PRE
     static let environmentDefault: TargetEnvironment = TargetEnvironment.PRE
-    #else
+#else
     static let environmentDefault: TargetEnvironment = TargetEnvironment.PRO
-    #endif
+#endif
     
     enum BaseUrlContext {
         case backend
         case webService
-        case heroku
+        case playersNba
     }
-
     
+    // Webservice
     //Teams
     
     //Western
@@ -71,6 +71,16 @@ struct URLEnpoint {
     
     //Players
     static let endpointPlayersByTeamAndSeason = "players?team=%@&season=%@"
+    static let endpointDetailPlayer = "/players/statistics?id=%@&team=%@&season=%@"
+    
+    //Games
+    static let endpointGamesToday = "games?date=\(Utils.todayDate)"
+    
+    
+    //NBA
+    
+    static let endpointPlayers = "data/10s/prod/v1/%@/players.json"
+    
     
 }
 
@@ -78,65 +88,67 @@ struct URLEnpoint {
 extension URLEnpoint {
     static func getUrlBase(urlContext: BaseUrlContext) -> String {
         switch urlContext {
-            case .backend:
-                switch self.environmentDefault {
-                    case .DEV:
-                        return ""
-                    case .PRE:
-                        return ""
-                    case .PRO:
-                        return ""
-                }
-            case .webService:
-                switch self.environmentDefault {
-                    case .DEV:
-                        return ""
-                    case .PRE:
-                        return ""
-                    case .PRO:
-                        return "https://api-nba-v1.p.rapidapi.com/"
-                }
-            case .heroku:
-                switch self.environmentDefault {
-                    case .DEV:
-                        return ""
-                    case .PRE:
-                        return ""
-                    case .PRO:
-                        return ""
+        case .backend:
+            switch self.environmentDefault {
+            case .DEV:
+                return ""
+            case .PRE:
+                return ""
+            case .PRO:
+                return ""
+            }
+        case .webService:
+            switch self.environmentDefault {
+            case .DEV:
+                return ""
+            case .PRE:
+                return ""
+            case .PRO:
+                return "https://api-nba-v1.p.rapidapi.com/"
+            }
+        case .playersNba:
+            switch self.environmentDefault {
+            case .DEV:
+                return ""
+            case .PRE:
+                return ""
+            case .PRO:
+                return "http://data.nba.net/"
+                
             }
         }
     }
     
+    
     static func getHttpHeaders(urlContext: BaseUrlContext) -> [String:String] {
         switch urlContext {
-            case .backend:
-                switch self.environmentDefault {
-                    case .DEV:
-                    return ["":""]
-                    case .PRE:
-                    return ["":""]
-                    case .PRO:
-                        return ["":""]
-                }
-            case .webService:
-                switch self.environmentDefault {
-                    case .DEV:
-                        return ["":""]
-                    case .PRE:
-                        return ["":""]
-                    case .PRO:
-                        return ["X-RapidAPI-Host":"api-nba-v1.p.rapidapi.com",
-                                "X-RapidAPI-Key": "\(Obfuscator().reveal(key: Constants.Api.apiKey))"]
-                }
-            case .heroku:
-                switch self.environmentDefault {
-                    case .DEV:
-                        return ["":""]
-                    case .PRE:
-                        return ["":""]
-                    case .PRO:
-                        return ["":""]
+        case .backend:
+            switch self.environmentDefault {
+            case .DEV:
+                return ["":""]
+            case .PRE:
+                return ["":""]
+            case .PRO:
+                return ["":""]
+            }
+        case .webService:
+            switch self.environmentDefault {
+            case .DEV:
+                return ["":""]
+            case .PRE:
+                return ["":""]
+            case .PRO:
+                return ["X-RapidAPI-Host":"api-nba-v1.p.rapidapi.com",
+                        "X-RapidAPI-Key": "\(Obfuscator().reveal(key: Constants.Api.apiKey))"]
+            }
+        case .playersNba:
+            switch self.environmentDefault {
+            case .DEV:
+                return ["":""]
+            case .PRE:
+                return ["":""]
+            case .PRO:
+                return ["":""]
             }
         }
     }
@@ -158,10 +170,10 @@ final class Utils {
     private static var currentSeasonYear: Int {
         return Calendar.current.component(.year, from: Date()) - 1
     }
-
+    
     
     private static var numberOfSeasons: Int {
-        return currentSeasonYear - 2012
+        return currentSeasonYear - 2015
     }
     
     static var currentSeason: Season {
@@ -175,5 +187,21 @@ final class Utils {
             seasons.append(season)
         }
         return seasons
+    }
+    
+    static let urlPlayerImage = "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/%@.png"
+    
+    static var todayDate: String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+}
+
+extension String {
+    func toJSON() -> Any? {
+        guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
     }
 }

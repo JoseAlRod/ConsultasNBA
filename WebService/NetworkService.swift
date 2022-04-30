@@ -17,7 +17,7 @@ final class NetworkService: NetworkServiceInputProtocol {
         }
         
         var urlRequest = URLRequest(url: urlUnw)
-        let headers = URLEnpoint.getHttpHeaders(urlContext: payloadRequest.urlContext)
+        let headers =  URLEnpoint.getHttpHeaders(urlContext: payloadRequest.urlContext)
         for header in headers {
             urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
         }

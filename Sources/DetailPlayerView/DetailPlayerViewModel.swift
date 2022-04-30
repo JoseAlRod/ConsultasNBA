@@ -13,7 +13,8 @@ final class DetailPlayerViewModel: BaseViewModel, ObservableObject {
     }
     
     // MARK: -Variables
-   
+    @Published
+    var player: PlayersModelView?
     
     // MARK: -Métodos públicos para View
     

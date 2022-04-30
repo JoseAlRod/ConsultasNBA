@@ -13,6 +13,7 @@ private let _imageCache = NSCache<AnyObject, AnyObject>()
 class ImageLoader: ObservableObject {
     
     @Published var image: UIImage?
+    @Published var images: [UIImage]?
     @Published var isLoading = false
     
     var imageCache = _imageCache
@@ -39,6 +40,30 @@ class ImageLoader: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func loadImages(with urls: [URL]) {
+        for url in urls {
+            let urlString = url.absoluteString
+           
+            
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self else { return }
+                do {
+                    let data = try Data(contentsOf: url)
+                    guard let image = UIImage(data: data) else {
+                        return
+                    }
+                    self.imageCache.setObject(image, forKey: urlString as AnyObject)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.images?.append(image)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
     }
 }
 

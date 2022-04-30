@@ -6,7 +6,7 @@ struct DetailPlayerView: View {
     var viewModel = DetailPlayerViewModel()
     
     var body: some View {
-        Text("Hello world")
+        Text("\(viewModel.player?.firstName ?? "") \(viewModel.player?.lastName ?? "")")
     }
 }
 

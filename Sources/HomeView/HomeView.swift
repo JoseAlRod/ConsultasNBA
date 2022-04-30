@@ -32,6 +32,8 @@ struct HomeView: View {
         switch tabItemType {
         case .teams:
             TeamsCoordinator.navigation()
+        case .games:
+            GamesCoordinator.navigation()
         }
     }
 }

@@ -15,16 +15,28 @@ import Foundation
 // MARK: - PlayersServerModel
 struct PlayersServerModel: Codable {
     let playersServerModelGet: String?
+    let parameters: Parameters?
     let results: Int?
     let response: [ResultPlayers]?
 
     enum CodingKeys: String, CodingKey {
         case playersServerModelGet
+        case parameters
         case results
         case response
     }
 }
 
+// MARK: - Parameters
+struct Parameters: Codable {
+    let team: String?
+    let season: String?
+
+    enum CodingKeys: String, CodingKey {
+        case team
+        case season
+    }
+}
 
 // MARK: - Response
 struct ResultPlayers: Codable {
@@ -37,7 +49,6 @@ struct ResultPlayers: Codable {
     let weight: Weight?
     let college: String?
     let affiliation: String?
-    let leagues: Leagues?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,25 +60,19 @@ struct ResultPlayers: Codable {
         case weight
         case college
         case affiliation
-        case leagues
     }
+    var image: String?
 }
 
 // MARK: - Birth
 struct Birth: Codable {
     let date: String?
-    let country: Country?
+    let country: String?
 
     enum CodingKeys: String, CodingKey {
         case date
         case country
     }
-}
-
-enum Country: String, Codable {
-    case france = "France"
-    case southSudan = "South Sudan"
-    case usa = "USA"
 }
 
 // MARK: - Height
@@ -83,31 +88,9 @@ struct Height: Codable {
     }
 }
 
-// MARK: - Leagues
-struct Leagues: Codable {
-    let standard: Standard?
-
-    enum CodingKeys: String, CodingKey {
-        case standard
-    }
-}
-
-// MARK: - Sacramento
-struct Standard: Codable {
-    let jersey: Int?
-    let active: Bool?
-    let pos: Pos?
-
-    enum CodingKeys: String, CodingKey {
-        case jersey
-        case active
-        case pos
-    }
-}
 
 enum Pos: String, Codable {
     case c = "C"
-    case cF = "C-F"
     case f = "F"
     case fC = "F-C"
     case fG = "F-G"

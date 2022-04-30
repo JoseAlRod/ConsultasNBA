@@ -13,4 +13,9 @@ struct PlayersModelView: Identifiable {
     let lastName: String?
     let height: String?
     let weight: String?
+    let image: String?
+    
+    var imageUrl: URL {
+        return URL(string: self.image ?? "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png")!
+    }
 }
