@@ -197,6 +197,27 @@ final class Utils {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: date)
     }
+    
+    static func formattedMinutes(min: String) -> Double? {
+        let aux = min.split(separator: ":")
+        if aux.count == 2 {
+            guard let minutesUnw = aux.first else {return nil}
+            if let minutes = Double(minutesUnw) {
+                if let seconds = Double(aux[1]) {
+                    return (minutes + seconds/60)
+                }
+                else {
+                    return nil
+                }
+            }
+            else {
+                return nil
+            }
+        }
+        else {
+            return nil
+        }
+    }
 }
 
 extension String {

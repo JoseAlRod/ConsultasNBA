@@ -2,7 +2,7 @@ import Foundation
 
 //Output del interactor
 protocol DetailPlayerInteractorOutputProtocol: BaseInteractorOutputProtocol {
-    
+    func setInformationDetailPlayerViewModel(data: DetailPlayerModelView?)
 }
 
 final class DetailPlayerViewModel: BaseViewModel, ObservableObject {
@@ -16,12 +16,20 @@ final class DetailPlayerViewModel: BaseViewModel, ObservableObject {
     @Published
     var player: PlayersModelView?
     
-    // MARK: -Métodos públicos para View
+    @Published
+    var detailPlayer: DetailPlayerModelView?
     
+    // MARK: -Métodos públicos para View
+    func fetchData() {
+        self.interactor?.fetchDataDetailPlayerInteractor()
+    }
    
 }
 
 //Output del interactor
 extension DetailPlayerViewModel: DetailPlayerInteractorOutputProtocol {
-    
+    func setInformationDetailPlayerViewModel(data: DetailPlayerModelView?) {
+        self.detailPlayer = nil
+        self.detailPlayer = data
+    }
 }

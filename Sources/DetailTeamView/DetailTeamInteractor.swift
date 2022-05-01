@@ -31,6 +31,11 @@ final class DetailTeamInteractor: BaseInteractor {
                                               lastName: player.lastname,
                                               height: player.height?.meters,
                                               weight: player.weight?.kilograms,
+                                              position: player.position,
+                                              jerseyNumber: player.jerseyNumber,
+                                              college: player.college,
+                                              birthDate: player.birth?.date,
+                                              birthCountry: player.birth?.country,
                                               image: player.image)
                 dataSourcePlayersModelView.append(object)
             }

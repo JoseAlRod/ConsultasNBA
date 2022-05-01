@@ -55,6 +55,15 @@ extension DetailTeamProvider: DetailTeamProviderInputProtocol {
                         if (resultData.league?.standard?[j].firstName)?.lowercased() == resultPlayers?[i].firstname?.lowercased() && resultData.league?.standard?[j].lastName?.lowercased() == resultPlayers?[i].lastname?.lowercased() {
                             if let personIdUnw = resultData.league?.standard?[j].personId {
                                 aux?[i].image = String(format: Utils.urlPlayerImage, personIdUnw)
+                                if let personPosUnw = resultData.league?.standard?[j].pos?.rawValue {
+                                    if !personPosUnw.elementsEqual("") {
+                                        aux?[i].position = personPosUnw
+                                    }
+                                    
+                                }
+                                if let personJerseyNumUnw = resultData.league?.standard?[j].jersey {
+                                    aux?[i].jerseyNumber = personJerseyNumUnw
+                                }
                                 break
                             }
                         }

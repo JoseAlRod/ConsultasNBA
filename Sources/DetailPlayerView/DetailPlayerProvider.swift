@@ -18,7 +18,7 @@ final class DetailPlayerProvider: BaseProvider {
 
 extension DetailPlayerProvider: DetailPlayerProviderInputProtocol {
     func fetchDataDetailPlayerProvider() {
-        self.networkService.requestGeneric(payloadRequest: DetailPlayerRequestDTO.requestData(id: "\(dataDTO?.player?.id ?? 0)", moreParams: "\(dataDTO?.team?.id ?? 0),\(dataDTO?.season?.seasonYear ?? 0)"), entityClass: DetailPlayerServerModel.self)
+        self.networkService.requestGeneric(payloadRequest: DetailPlayerRequestDTO.requestData(id: "\(dataDTO?.player?.id ?? 0)", team: "\(dataDTO?.team?.id ?? 0)", season: "\(dataDTO?.season?.seasonYear ?? 0)" ), entityClass: DetailPlayerServerModel.self)
             .sink { [weak self] completion in
                 guard self != nil else { return }
                 switch completion {
@@ -40,8 +40,8 @@ extension DetailPlayerProvider: DetailPlayerProviderInputProtocol {
 
 // MARK: - Support requests
 struct DetailPlayerRequestDTO {
-    static func requestData(id: String, moreParams: String) -> RequestDTO {
-        let argument: [CVarArg] = [id, moreParams]
+    static func requestData(id: String, team: String, season: String) -> RequestDTO {
+        let argument: [CVarArg] = [id, team, season]
         let urlComplete = String(format: URLEnpoint.endpointDetailPlayer, arguments: argument)
         let request = RequestDTO(params: nil, method: .get, endpoint: urlComplete, urlContext: .webService)
         return request

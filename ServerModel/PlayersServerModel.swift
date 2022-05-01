@@ -14,29 +14,13 @@ import Foundation
 
 // MARK: - PlayersServerModel
 struct PlayersServerModel: Codable {
-    let playersServerModelGet: String?
-    let parameters: Parameters?
-    let results: Int?
     let response: [ResultPlayers]?
 
     enum CodingKeys: String, CodingKey {
-        case playersServerModelGet
-        case parameters
-        case results
         case response
     }
 }
 
-// MARK: - Parameters
-struct Parameters: Codable {
-    let team: String?
-    let season: String?
-
-    enum CodingKeys: String, CodingKey {
-        case team
-        case season
-    }
-}
 
 // MARK: - Response
 struct ResultPlayers: Codable {
@@ -62,7 +46,10 @@ struct ResultPlayers: Codable {
         case affiliation
     }
     var image: String?
+    var position: String?
+    var jerseyNumber: String?
 }
+
 
 // MARK: - Birth
 struct Birth: Codable {
@@ -89,15 +76,6 @@ struct Height: Codable {
 }
 
 
-enum Pos: String, Codable {
-    case c = "C"
-    case f = "F"
-    case fC = "F-C"
-    case fG = "F-G"
-    case g = "G"
-    case gF = "G-F"
-}
-
 // MARK: - Nba
 struct Nba: Codable {
     let start: Int?
@@ -119,3 +97,4 @@ struct Weight: Codable {
         case kilograms
     }
 }
+
