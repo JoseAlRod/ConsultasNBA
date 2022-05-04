@@ -23,7 +23,7 @@ struct TeamsView: View {
                     }
                 }
             } header: {
-                Text("Western Conference")
+                Text("westernConference")
             }
             Section {
                 ForEach(viewModel.dataSourceEasternTeams) { item in
@@ -34,11 +34,11 @@ struct TeamsView: View {
                     }
                 }
             } header: {
-                Text("Eastern Conference")
+                Text("easternConference")
             }
         }
         .listStyle(PlainListStyle())
-        .navigationTitle(Text("Teams"))
+        .navigationTitle(Text("teams"))
         .onAppear {
             self.viewModel.fetchData()
         }
@@ -64,6 +64,11 @@ struct TeamCard: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
+                    
+            }
+            else {
+               ProgressView()
+                    
             }
             Text(self.team.name ?? "")
         }

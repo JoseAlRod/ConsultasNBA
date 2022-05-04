@@ -14,8 +14,8 @@ final class HomeViewModel: ObservableObject {
     var selectedTabItem: TabItemViewModel.TabItemType = .teams
     
     let tabItemViewModel = [
-        TabItemViewModel(imageName: "team", title: "Teams", type: .teams),
-        TabItemViewModel(imageName: "game", title: "Games", type: .games)
+        TabItemViewModel(imageName: "team", title: String(localized: "teams"), type: .teams),
+        TabItemViewModel(imageName: "game", title: String(localized: "games"), type: .games)
     ]
 }
 

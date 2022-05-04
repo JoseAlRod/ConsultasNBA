@@ -218,6 +218,22 @@ final class Utils {
             return nil
         }
     }
+    
+    static func formattedDate(date: String?, languageCode: String) -> String? {
+        guard let dateUnw = date else {return nil}
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+        let dateFormatterPrint = DateFormatter()
+        switch(languageCode) {
+        case "es":
+            dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+            dateFormatterPrint.dateFormat = "dd-MM-yyyy"
+        default:
+            dateFormatterPrint.dateFormat = "MM-dd-yyyy"
+        }
+        guard let dateObjectFormatted = dateFormatterGet.date(from: dateUnw) else {return nil}
+        return dateFormatterPrint.string(from: dateObjectFormatted)
+    }
 }
 
 extension String {

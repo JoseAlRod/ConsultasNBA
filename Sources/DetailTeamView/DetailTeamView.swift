@@ -5,16 +5,12 @@ struct DetailTeamView: View {
     @StateObject
     var viewModel = DetailTeamViewModel()
     
-    
     var body: some View {
         VStack {
             List {
                 ForEach(viewModel.team?.players ?? []) { item in
                     NavigationLink {
-                        DetailPlayerCoordinator.view(dto: DetailPlayerCoordinatorDTO.init(
-                            player: item,
-                            season: viewModel.selectedSeason,
-                            team: viewModel.team))
+                        DetailPlayerCoordinator.view(dto: DetailPlayerCoordinatorDTO(player: item, season: viewModel.selectedSeason, team: viewModel.team))
                     } label: {
                         PlayerOverviewCard(player: item)
                     }
@@ -22,21 +18,17 @@ struct DetailTeamView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .navigationTitle(Text(viewModel.team?.name ?? ""))
-            .onAppear {
-                self.viewModel.fetchData()
-            }
             List {
-                Picker("Season", selection: $viewModel.selectedSeason) {
-                    ForEach(Utils.seasons) { season in
+                Picker("season", selection: $viewModel.selectedSeason) {
+                    ForEach(viewModel.seasons) { season in
                         Text("\(season.description)").tag(season)
                     }
                 }
-                .onChange(of: viewModel.selectedSeason) { season in
-                    viewModel.selectedSeason = season
-                    self.viewModel.fetchData()
-                }
             }
+        }
+        .navigationTitle(Text(viewModel.team?.name ?? ""))
+        .onAppear {
+            self.viewModel.fetchData()
         }
     }
 }
@@ -55,10 +47,15 @@ struct PlayerOverviewCard: View {
     
     var body: some View {
         HStack() {
-            Image(uiImage: self.imageLoader.image ?? UIImage(named: "player_placeholder.png")!)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 64, height: 64)
+            if imageLoader.image != nil {
+                Image(uiImage: self.imageLoader.image ?? UIImage(named: "player_placeholder.png")!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 64, height: 64)
+            }
+            else {
+                ProgressView()
+            }
             Spacer()
             Text("\(self.player.firstName ?? "") \(self.player.lastName ?? "")")
         }

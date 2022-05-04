@@ -19,6 +19,9 @@ final class DetailTeamViewModel: BaseViewModel, ObservableObject {
     @Published
     var selectedSeason: Season = Utils.currentSeason
     
+    @Published
+    var seasons: [Season] = Utils.seasons
+    
     
     // MARK: -Métodos públicos para View
     

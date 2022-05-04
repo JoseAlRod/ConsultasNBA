@@ -12,4 +12,9 @@ struct GamesModelView: Identifiable {
     let visitorTeam: TeamsModelView
     let homeTeam: TeamsModelView
     let arena: String?
+    let status: String?
+    let homeScore: String?
+    let visitorScore: String?
+    let dateTime: String?
+    
 }

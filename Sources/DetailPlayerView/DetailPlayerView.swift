@@ -35,41 +35,57 @@ struct DetailPlayerCard: View {
     
     
     var body: some View {
-        if imageLoader.image != nil {
-            Image(uiImage: self.imageLoader.image!)
-        }
-        Section {
-            HStack {
-                Text(player.firstName ?? String(localized: "unknown"))
-                Text(player.lastName ?? String(localized: "unknown"))
+        ScrollView(showsIndicators: false) {
+            if imageLoader.image != nil {
+                Image(uiImage: self.imageLoader.image!)
             }
-            Text("height \(player.height ?? String(localized: "unknown"))")
-            Text("weight \(player.weight ?? String(localized: "unknown"))")
-            HStack {
-                Text("position \(String(localized: player.fullPosition))")
+            ZStack {
+                Image("jersey")
+                Text(player.jerseyNumber ?? "")
             }
-            Text("jersey \(player.jerseyNumber ?? String(localized: "unknown"))")
-            Text("college \(player.college ?? String(localized: "unknown"))")
-            Text("birthDate \(player.birthDate ?? String(localized: "unknown"))")
-            Text("birthCountry \(player.birthCountry ?? String(localized: "unknown"))")
-        } header: {
-            Text("about")
+            Section {
+                HStack {
+                    Text("\(player.firstName ?? "") \(player.lastName ?? "")")
+                }
+                switch(Locale.current.languageCode) {
+                case "es":
+                    Text("height \(player.height?.meters ?? String(localized: "unknown"))")
+                    Text("weight \(player.weight?.kilograms ?? String(localized: "unknown"))")
+                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, languageCode: "es") ?? String(localized: "unknown"))")
+                default:
+                    Text("height \(player.height?.feets ?? String(localized: "unknown"))")
+                    Text("weight \(player.weight?.pounds ?? String(localized: "unknown"))")
+                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, languageCode: "en") ?? String(localized: "unknown"))")
+                }
+                HStack {
+                    Text("position \(String(localized: player.fullPosition))")
+                }
+               
+                
+                Text("college \(player.college ?? String(localized: "unknown"))")
+                Text("birthCountry \(player.birthCountry ?? String(localized: "unknown"))")
+            } header: {
+                Text("about")
+                    .font(.title)
+            }
+            Section {
+                Text("ppg \(detailPlayer.points ?? "0")")
+                Text("apg \(detailPlayer.assists ?? "0")")
+                Text("rpg \(detailPlayer.rebounds ?? "0")")
+                Text("fgp \(detailPlayer.fieldGoalPercentage ?? "0")")
+                Text("tpp \(detailPlayer.threePercentage ?? "0")")
+                Text("bpg \(detailPlayer.blocks ?? "0")")
+                Text("spg \(detailPlayer.steals ?? "0")")
+                Text("fpg \(detailPlayer.fouls ?? "0")")
+                Text("tpg \(detailPlayer.turnovers ?? "0")")
+                Text("mpg \(detailPlayer.minutes ?? "0")")
+                
+            } header: {
+                Text("stats")
+                    .font(.title)
+            }
         }
-        Section {
-            Text("ppg \(detailPlayer.points ?? "0")")
-            Text("apg \(detailPlayer.assists ?? "0")")
-            Text("rpg \(detailPlayer.rebounds ?? "0")")
-            Text("fgp \(detailPlayer.fieldGoalPercentage ?? "0")")
-            Text("tpp \(detailPlayer.threePercentage ?? "0")")
-            Text("bpg \(detailPlayer.blocks ?? "0")")
-            Text("spg \(detailPlayer.steals ?? "0")")
-            Text("fpg \(detailPlayer.fouls ?? "0")")
-            Text("tpg \(detailPlayer.turnovers ?? "0")")
-            Text("mpg \(detailPlayer.minutes ?? "0")")
-            
-        } header: {
-            Text("stats")
-        }
+        
     }
 }
 

@@ -36,7 +36,11 @@ final class GamesInteractor: BaseInteractor {
                                                                      name: game.teams?.home?.name,
                                                                      city: nil,
                                                                      logo: game.teams?.home?.logo),
-                                            arena: game.arena?.name)
+                                            arena: game.arena?.name,
+                                            status: game.status?.long,
+                                            homeScore: String(game.scores?.home?.points ?? 0),
+                                            visitorScore: String(game.scores?.visitors?.points ?? 0),
+                                            dateTime: game.date?.start)
                 dataSourceGamesModelView.append(object)
             }
         }

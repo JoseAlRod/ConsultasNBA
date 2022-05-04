@@ -11,8 +11,8 @@ struct PlayersModelView: Identifiable {
     let id: Int?
     let firstName: String?
     let lastName: String?
-    let height: String?
-    let weight: String?
+    let height: Height?
+    let weight: Weight?
     let position: String?
     let jerseyNumber: String?
     let college: String?

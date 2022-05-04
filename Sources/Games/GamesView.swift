@@ -11,8 +11,11 @@ struct GamesView: View {
                 GameCard(game: item)
             }
         }
-        .navigationTitle("Games today")
+        .navigationTitle("gamesToday")
         .onAppear {
+            self.viewModel.fetchData()
+        }
+        .refreshable {
             self.viewModel.fetchData()
         }
     }
@@ -38,25 +41,38 @@ struct GameCard: View {
     
     
     var body: some View {
-        HStack {
-            VStack {
-                if imageLoader1.image != nil {
-                    Image(uiImage: self.imageLoader1.image!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
+        VStack {
+            HStack(alignment: .center) {
+                VStack {
+                    if imageLoader1.image != nil {
+                        Image(uiImage: self.imageLoader1.image!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 32, height: 32)
+                    }
+                    Text(game.homeTeam.name ?? "")
                 }
-                Text(game.homeTeam.name ?? "")
+                Spacer()
+                VStack {
+                    if imageLoader2.image != nil {
+                        Image(uiImage: self.imageLoader2.image!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 32, height: 32)
+                    }
+                    Text(game.visitorTeam.name ?? "")
+                }
             }
-            Spacer()
-            VStack {
-                if imageLoader2.image != nil {
-                    Image(uiImage: self.imageLoader2.image!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
+            switch(game.status) {
+            case "In Play":
+                Text("Playing")
+            case "Finished":
+                Text("\(game.homeScore ?? "")-\(game.visitorScore ?? "")")
+            default:
+                VStack {
+                    Text("Scheduled")
+                    Text(game.dateTime ?? "")
                 }
-                Text(game.visitorTeam.name ?? "")
             }
         }
     }
