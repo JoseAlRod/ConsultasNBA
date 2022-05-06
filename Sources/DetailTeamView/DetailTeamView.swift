@@ -5,6 +5,9 @@ struct DetailTeamView: View {
     @StateObject
     var viewModel = DetailTeamViewModel()
     
+    @ObservedObject
+    var seasonsController = SeasonsController()
+    
     var body: some View {
         VStack {
             List {
@@ -20,7 +23,7 @@ struct DetailTeamView: View {
             .listStyle(PlainListStyle())
             List {
                 Picker("season", selection: $viewModel.selectedSeason) {
-                    ForEach(viewModel.seasons) { season in
+                    ForEach(seasonsController.seasons) { season in
                         Text("\(season.description)").tag(season)
                     }
                 }

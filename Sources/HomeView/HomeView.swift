@@ -34,6 +34,8 @@ struct HomeView: View {
             TeamsCoordinator.navigation()
         case .games:
             GamesCoordinator.navigation()
+        case .standings:
+            StandingsCoordinator.navigation()
         }
     }
 }

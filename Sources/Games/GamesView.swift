@@ -11,6 +11,7 @@ struct GamesView: View {
                 GameCard(game: item)
             }
         }
+        .environment(\.defaultMinListRowHeight, 100)
         .navigationTitle("gamesToday")
         .onAppear {
             self.viewModel.fetchData()
@@ -63,15 +64,28 @@ struct GameCard: View {
                     Text(game.visitorTeam.name ?? "")
                 }
             }
+            Spacer()
             switch(game.status) {
             case "In Play":
-                Text("Playing")
+                Text("inPlay")
             case "Finished":
-                Text("\(game.homeScore ?? "")-\(game.visitorScore ?? "")")
+                VStack {
+                    Text("finished")
+                    HStack {
+                        Text(game.homeScore ?? "")
+                        Spacer()
+                        Text(game.visitorScore ?? "")
+                    }
+                }
             default:
                 VStack {
-                    Text("Scheduled")
-                    Text(game.dateTime ?? "")
+                    Text("scheduled")
+                    switch(Locale.current.languageCode) {
+                    case "es":
+                        Text(Utils.formattedDateTime(dateTime: game.dateTime, languageCode: "es") ?? "")
+                    default:
+                        Text(Utils.formattedDateTime(dateTime: game.dateTime, languageCode: "en") ?? "")
+                    }
                 }
             }
         }

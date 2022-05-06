@@ -76,6 +76,11 @@ struct URLEnpoint {
     //Games
     static let endpointGamesToday = "games?date=\(Utils.todayDate)"
     
+    //Standings
+    static let endpointStandingsWest = "standings?season=\(Utils.currentSeason.seasonYear)&conference=west&league=standard"
+    
+    static let endpointStandingsEast = "standings?season=\(Utils.currentSeason.seasonYear)&conference=east&league=standard"
+    
     
     //NBA
     
@@ -163,6 +168,15 @@ struct Season: Identifiable, Hashable {
         self.seasonYear = seasonYear
         self.description = description
     }
+
+}
+
+class SeasonsController: ObservableObject {
+    @Published var seasons: [Season] = []
+
+    init() {
+        seasons = Utils.seasons
+    }
 }
 
 final class Utils {
@@ -233,6 +247,23 @@ final class Utils {
         }
         guard let dateObjectFormatted = dateFormatterGet.date(from: dateUnw) else {return nil}
         return dateFormatterPrint.string(from: dateObjectFormatted)
+    }
+    
+    static func formattedDateTime(dateTime: String?, languageCode: String) -> String? {
+        guard let dateTimeUnw = dateTime else {return nil}
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let dateFormatterPrint = DateFormatter()
+        switch(languageCode) {
+        case "es":
+            dateFormatterGet.locale = .init(identifier: "es_ES")
+            dateFormatterPrint.dateFormat = "dd MMMM yyyy HH:mm"
+        default:
+            dateFormatterGet.locale = .init(identifier: "en_EN")
+            dateFormatterPrint.dateFormat = "MMMM dd yyyy HH:mm"
+        }
+        guard let dateTimeObjectFormatted = dateFormatterGet.date(from: dateTimeUnw) else {return nil}
+        return dateFormatterPrint.string(from: dateTimeObjectFormatted)
     }
 }
 

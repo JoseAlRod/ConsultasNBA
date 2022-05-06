@@ -67,7 +67,9 @@ struct DetailPlayerCard: View {
             } header: {
                 Text("about")
                     .font(.title)
+                    .padding()
             }
+            Divider().padding()
             Section {
                 Text("ppg \(detailPlayer.points ?? "0")")
                 Text("apg \(detailPlayer.assists ?? "0")")
@@ -83,6 +85,7 @@ struct DetailPlayerCard: View {
             } header: {
                 Text("stats")
                     .font(.title)
+                    .padding()
             }
         }
         
