@@ -6,17 +6,26 @@ struct GamesView: View {
     var viewModel = GamesViewModel()
     
     var body: some View {
-        List {
-            ForEach(viewModel.dataSourceGamesModelView ?? []) { item in
-                GameCard(game: item)
+        VStack {
+            if !(self.viewModel.dataSourceGamesModelView?.isEmpty ?? true) {
+                List {
+                    ForEach(viewModel.dataSourceGamesModelView ?? []) { item in
+                        GameCard(game: item)
+                    }
+                }
+                .refreshable {
+                    self.viewModel.fetchData()
+                }
+                .environment(\.defaultMinListRowHeight, 100)
+            }
+            else {
+                HStack {
+                    Text("noGames")
+                }
             }
         }
-        .environment(\.defaultMinListRowHeight, 100)
         .navigationTitle("gamesToday")
         .onAppear {
-            self.viewModel.fetchData()
-        }
-        .refreshable {
             self.viewModel.fetchData()
         }
     }
@@ -31,6 +40,9 @@ struct GameCard: View {
     var imageLoader2 = ImageLoader()
     
     private var game: GamesModelView
+    
+    let languageController = LanguageController()
+    
     
     init(game: GamesModelView) {
         self.game = game
@@ -80,11 +92,13 @@ struct GameCard: View {
             default:
                 VStack {
                     Text("scheduled")
-                    switch(Locale.current.languageCode) {
-                    case "es":
-                        Text(Utils.formattedDateTime(dateTime: game.dateTime, languageCode: "es") ?? "")
+                    switch(languageController.language) {
+                    case .spanish:
+                        Text(Utils.formattedDateTime(dateTime: game.dateTime, language: .spanish) ?? "")
+                    case .english:
+                        Text(Utils.formattedDateTime(dateTime: game.dateTime, language: .english) ?? "")
                     default:
-                        Text(Utils.formattedDateTime(dateTime: game.dateTime, languageCode: "en") ?? "")
+                        Text(Utils.formattedDateTime(dateTime: game.dateTime, language: .english) ?? "")
                     }
                 }
             }

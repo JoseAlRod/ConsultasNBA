@@ -233,32 +233,33 @@ final class Utils {
         }
     }
     
-    static func formattedDate(date: String?, languageCode: String) -> String? {
+    static func formattedDate(date: String?, language: LanguageController.LanguageEnum) -> String? {
         guard let dateUnw = date else {return nil}
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd"
         let dateFormatterPrint = DateFormatter()
-        switch(languageCode) {
-        case "es":
+        switch(language) {
+        case .spanish:
             dateFormatterPrint.dateFormat = "MMM dd,yyyy"
             dateFormatterPrint.dateFormat = "dd-MM-yyyy"
-        default:
+        case .english:
             dateFormatterPrint.dateFormat = "MM-dd-yyyy"
+       
         }
         guard let dateObjectFormatted = dateFormatterGet.date(from: dateUnw) else {return nil}
         return dateFormatterPrint.string(from: dateObjectFormatted)
     }
     
-    static func formattedDateTime(dateTime: String?, languageCode: String) -> String? {
+    static func formattedDateTime(dateTime: String?, language: LanguageController.LanguageEnum) -> String? {
         guard let dateTimeUnw = dateTime else {return nil}
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let dateFormatterPrint = DateFormatter()
-        switch(languageCode) {
-        case "es":
+        switch(language) {
+        case .spanish:
             dateFormatterGet.locale = .init(identifier: "es_ES")
             dateFormatterPrint.dateFormat = "dd MMMM yyyy HH:mm"
-        default:
+        case .english:
             dateFormatterGet.locale = .init(identifier: "en_EN")
             dateFormatterPrint.dateFormat = "MMMM dd yyyy HH:mm"
         }

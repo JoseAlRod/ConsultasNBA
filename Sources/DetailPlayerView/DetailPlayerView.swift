@@ -23,6 +23,10 @@ struct DetailPlayerCard: View {
     var player: PlayersModelView
     var detailPlayer: DetailPlayerModelView
     
+    let regionController = RegionController()
+    
+    let languageController = LanguageController()
+    
     @ObservedObject
     var imageLoader = ImageLoader()
     
@@ -47,15 +51,32 @@ struct DetailPlayerCard: View {
                 HStack {
                     Text("\(player.firstName ?? "") \(player.lastName ?? "")")
                 }
-                switch(Locale.current.languageCode) {
-                case "es":
+                switch(languageController.language) {
+                case .spanish:
                     Text("height \(player.height?.meters ?? String(localized: "unknown"))")
                     Text("weight \(player.weight?.kilograms ?? String(localized: "unknown"))")
-                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, languageCode: "es") ?? String(localized: "unknown"))")
+                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, language: .spanish) ?? String(localized: "unknown"))")
+                    
+                case .english:
+                    switch(regionController?.region) {
+                    case .us:
+                        Text("height \(player.fullUsHeight ?? String(localized: "unknown"))")
+                        Text("weight \(player.weight?.pounds ?? String(localized: "unknown"))")
+                        Text("birthDate \(Utils.formattedDate(date: player.birthDate, language: .english) ?? String(localized: "unknown"))")
+                    case .uk:
+                        Text("height \(player.height?.meters ?? String(localized: "unknown"))")
+                        Text("weight \(player.weight?.kilograms ?? String(localized: "unknown"))")
+                        Text("birthDate \(Utils.formattedDate(date: player.birthDate, language: .english) ?? String(localized: "unknown"))")
+                    default:
+                        Text("height \(player.height?.meters ?? String(localized: "unknown"))")
+                        Text("weight \(player.weight?.kilograms ?? String(localized: "unknown"))")
+                        Text("birthDate \(Utils.formattedDate(date: player.birthDate, language: .english) ?? String(localized: "unknown"))")
+                    }
                 default:
                     Text("height \(player.height?.feets ?? String(localized: "unknown"))")
                     Text("weight \(player.weight?.pounds ?? String(localized: "unknown"))")
-                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, languageCode: "en") ?? String(localized: "unknown"))")
+                    Text("birthDate \(Utils.formattedDate(date: player.birthDate, language: .english) ?? String(localized: "unknown"))")
+                    
                 }
                 HStack {
                     Text("position \(String(localized: player.fullPosition))")

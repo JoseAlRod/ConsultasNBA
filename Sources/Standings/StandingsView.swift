@@ -29,8 +29,10 @@ struct StandingsView: View {
                     
                 } header: {
                     Text("westernConference")
+                        .font(.title)
+                        .fontWeight(.bold)
                 }
-                
+    
                 Section {
                     ScrollView([.vertical, .horizontal], showsIndicators: false) {
                         ScrollViewReader { proxy in
@@ -50,6 +52,8 @@ struct StandingsView: View {
                     }
                 } header: {
                     Text("easternConference")
+                        .font(.title)
+                        .fontWeight(.bold)
                 }
             }
             

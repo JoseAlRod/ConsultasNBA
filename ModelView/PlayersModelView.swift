@@ -24,6 +24,12 @@ struct PlayersModelView: Identifiable {
         return URL(string: self.image ?? "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png")!
     }
     
+    var fullUsHeight: String? {
+        guard let heightFtUnw = self.height?.feets else {return nil}
+        guard let heightIncUnw = self.height?.inches else {return nil}
+        return "\(heightFtUnw)'\(heightIncUnw)\""
+    }
+    
     var fullPosition: String.LocalizationValue {
         switch(self.position) {
         case "C":
