@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  NBA
+
+  Created by Jose Alberto on 1/5/22.
+  
+*/
+
+"teams" = "Teams";
+"westernConference" = "Western Conference";
+"easternConference" = "Eastern Conference";
+
+"season" = "Season";
+
+
+"about" = "About";
+"height %@" = "Height (in meters): %@";
+"weight %@" = "Weight (in kilograms): %@";
+"position %@" = "Position: %@";
+"college %@" = "University: %@";
+"birthDate %@" = "Birth date: %@";
+"birthCountry %@" = "Birth country: %@";
+"stats" = "Statistics";
+"ppg %@" = "Points per game: %@";
+"apg %@" = "Assists per game: %@";
+"rpg %@" = "Rebounds per game: %@";
+"fgp %@" = "Field goal percentage: %@";
+"tpp %@" = "Three point percentage: %@";
+"bpg %@" = "Blocks per game: %@";
+"spg %@" = "Steals per game: %@";
+"fpg %@" = "Fouls per game: %@";
+"tpg %@" = "Turnovers per game: %@";
+"mpg %@" = "Minutes per game: %@";
+"C" = "Center";
+"C-F" = "Center/Power Forward";
+"F" = "Power Forward";
+"F-C" = "Power Forward/Center";
+"F-G" = "Small Forward/Shooting Guard";
+"G" = "Point Guard/Shooting Guard";
+"G-F" = "Shooting Guard/Small Forward";
+"unknown" = "Unknown";
+
+"games" = "Games";
+"gamesToday" = "Games today";
+"scheduled" = "Scheduled";
+"inPlay" = "In play";
+"finished" = "Finished";
+"noGames" = "No games today 😕";
+
+"standings" = "Standings";
+"winStreak" = "W";
+"lossStreak" = "L";
+"rank" = "Rank";
+"team" = "Team";
+"logo" = "Logo";
+"wins" = "Wins";
+"losses" = "Losses";
+"winningPercentage" = "% Wins";
+"streak" = "Streak";

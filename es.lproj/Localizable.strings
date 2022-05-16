@@ -1,0 +1,63 @@
+/* 
+  Localizable.strings
+  NBA
+
+  Created by Jose Alberto on 1/5/22.
+  
+*/
+
+
+"teams" = "Equipos";
+"westernConference" = "Conferencia Oeste";
+"easternConference" = "Conferencia Este";
+
+"season" = "Temporada";
+
+
+"about" = "Información general";
+"height %@" = "Altura (en metros): %@";
+"weight %@" = "Peso (en kilogramos): %@";
+"position %@" = "Posición: %@";
+"college %@" = "Universidad: %@";
+"birthDate %@" = "Fecha de nacimiento: %@";
+"birthCountry %@" = "País de nacimiento: %@";
+"stats" = "Estadísticas";
+"ppg %@" = "Puntos por partido: %@";
+"apg %@" = "Asistencias por partido: %@";
+"rpg %@" = "Rebotes por partido: %@";
+"fgp %@" = "Porcentaje de tiros de campo: %@";
+"tpp %@" = "Porcentaje de tiros de tres: %@";
+"bpg %@" = "Tapones por partido: %@";
+"spg %@" = "Robos por partido: %@";
+"fpg %@" = "Faltas por partido: %@";
+"tpg %@" = "Pérdidas por partido: %@";
+"mpg %@" = "Minutos por partido: %@";
+"C" = "Pívot";
+"C-F" = "Pívot/Ala-Pívot";
+"F" = "Ala-Pívot";
+"F-C" = "Ala-Pívot/Pívot";
+"F-G" = "Alero/Escolta";
+"G" = "Base/Escolta";
+"G-F" = "Escolta/Alero";
+"unknown" = "Desconocido";
+
+"games" = "Partidos";
+"gamesToday" = "Partidos de hoy";
+"scheduled" = "Programado";
+"inPlay" = "En curso";
+"finished" = "Finalizado";
+"noGames" = "No hay partidos el día de hoy 😕";
+
+
+"standings" = "Clasificación";
+"winStreak" = "V";
+"lossStreak" = "D";
+"rank" = "Puesto";
+"team" = "Equipo";
+"logo" = "Escudo";
+"wins" = "Victorias";
+"losses" = "Derrotas";
+"winningPercentage" = "% Victorias";
+"streak" = "Racha";
+
+
